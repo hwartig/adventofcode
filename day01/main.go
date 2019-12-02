@@ -13,6 +13,15 @@ func CalcFuel(mass int) int {
 	return int(math.Floor(float64(mass/3)) - 2)
 }
 
+func CalcFuelRecursive(mass int) int {
+	fuel := CalcFuel(mass)
+
+	if fuel <= 0 {
+		return 0
+	}
+	return fuel + CalcFuelRecursive(fuel)
+}
+
 var fileName = "input.txt"
 
 func main() {
@@ -33,7 +42,7 @@ func main() {
 			log.Fatalf("could not convert %v to integer", stringMass)
 		}
 
-		total = total + CalcFuel(mass)
+		total = total + CalcFuelRecursive(mass)
 	}
 	if err := scanner.Err(); err != nil {
 		log.Fatal("reading standard input:", err)
