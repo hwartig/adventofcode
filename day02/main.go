@@ -10,8 +10,12 @@ import (
 
 var fileName = "input.txt"
 
-func run(s string) []int {
+func run(s string, noun, verb int) []int {
 	input := splitToNumbers(s)
+
+	// add overrides to original input
+	input[1] = noun
+	input[2] = verb
 
 	pos := 0
 	for {
@@ -53,5 +57,5 @@ func main() {
 		log.Fatal("couldn't read file: ", fileName, err)
 	}
 
-	fmt.Println(run(string(content))[0])
+	fmt.Println(run(string(content), 12, 2)[0])
 }
