@@ -51,11 +51,30 @@ func splitToNumbers(s string) (numbers []int) {
 	return
 }
 
+func part1(input string) {
+	fmt.Println(run(input, 12, 2)[0])
+}
+
+func part2(input string) {
+	expectedOutput := 19690720
+
+	for noun := 0; noun < 100; noun++ {
+		for verb := 0; verb < 100; verb++ {
+			result := run(input, noun, verb)
+			if result[0] == expectedOutput {
+				fmt.Println(noun*100 + verb)
+			}
+		}
+	}
+}
+
 func main() {
 	content, err := ioutil.ReadFile(fileName)
 	if err != nil {
 		log.Fatal("couldn't read file: ", fileName, err)
 	}
 
-	fmt.Println(run(string(content), 12, 2)[0])
+	//part1(string(content))
+
+	part2(string(content))
 }
