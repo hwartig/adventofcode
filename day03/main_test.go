@@ -1,36 +1,9 @@
 package main
 
 import (
+	"reflect"
 	"testing"
 )
-
-func (a Wire) Equal(b Wire) bool {
-	if len(a.Steps) != len(b.Steps) {
-		return false
-	}
-
-	for i, v := range a.Steps {
-		if v != b.Steps[i] {
-			return false
-		}
-	}
-
-	return true
-}
-
-func (a Points) Equal(b Points) bool {
-	if len(a) != len(b) {
-		return false
-	}
-
-	for i, v := range a {
-		if v != b[i] {
-			return false
-		}
-	}
-
-	return true
-}
 
 func TestParseWire(t *testing.T) {
 	testCases := map[string]Wire{
@@ -41,7 +14,7 @@ func TestParseWire(t *testing.T) {
 	for input, expected := range testCases {
 		actual := parseWire(input)
 
-		if !actual.Equal(expected) {
+		if !reflect.DeepEqual(actual, expected) {
 			t.Errorf("%v: Expected: %v but got: %v", input, expected, actual)
 		}
 	}
@@ -60,7 +33,7 @@ func TestWirePointCloud(t *testing.T) {
 		wire := parseWire(input)
 		actual := wire.Points()
 
-		if !actual.Equal(expected) {
+		if !reflect.DeepEqual(actual, expected) {
 			t.Errorf("%v: Expected: %v but got: %v", input, expected, actual)
 		}
 	}

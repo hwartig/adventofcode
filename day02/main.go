@@ -14,8 +14,12 @@ func run(s string, noun, verb int) []int {
 	input := splitToNumbers(s)
 
 	// add overrides to original input
-	input[1] = noun
-	input[2] = verb
+	if noun > 0 {
+		input[1] = noun
+	}
+	if verb > 0 {
+		input[2] = verb
+	}
 
 	pos := 0
 	for {
@@ -58,8 +62,8 @@ func part1(input string) {
 func part2(input string) {
 	expectedOutput := 19690720
 
-	for noun := 0; noun < 100; noun++ {
-		for verb := 0; verb < 100; verb++ {
+	for noun := 1; noun < 100; noun++ {
+		for verb := 1; verb < 100; verb++ {
 			result := run(input, noun, verb)
 			if result[0] == expectedOutput {
 				fmt.Println(noun*100 + verb)

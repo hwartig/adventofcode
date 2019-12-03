@@ -1,20 +1,9 @@
 package main
 
 import (
+	"reflect"
 	"testing"
 )
-
-func sliceEqual(a, b []int) bool {
-	if len(a) != len(b) {
-		return false
-	}
-	for i, v := range a {
-		if v != b[i] {
-			return false
-		}
-	}
-	return true
-}
 
 func TestSplitToNumbers(t *testing.T) {
 	testCases := map[string][]int{
@@ -28,7 +17,7 @@ func TestSplitToNumbers(t *testing.T) {
 	for input, expected := range testCases {
 		actual := splitToNumbers(input)
 
-		if !sliceEqual(actual, expected) {
+		if !reflect.DeepEqual(actual, expected) {
 			t.Errorf("%v: Expected: %v but got: %v", input, expected, actual)
 		}
 	}
@@ -44,9 +33,9 @@ func TestRun(t *testing.T) {
 	}
 
 	for input, expectedOutput := range testCases {
-		actualOutput := run(input)
+		actualOutput := run(input, 0, 0)
 
-		if !sliceEqual(expectedOutput, actualOutput) {
+		if !reflect.DeepEqual(expectedOutput, actualOutput) {
 			t.Errorf("%v: Expected: %v but got: %v", input, expectedOutput, actualOutput)
 		}
 	}
