@@ -1,0 +1,30 @@
+package main
+
+import (
+	"fmt"
+	"io/ioutil"
+	"log"
+	"strconv"
+)
+
+func Part1(input string) string {
+	result := 0
+	return strconv.Itoa(result)
+}
+
+func Part2(input string) string {
+	result := 0
+	return strconv.Itoa(result)
+}
+
+func ReadInput() string {
+	input, err := ioutil.ReadFile("input.txt")
+	if err != nil {
+		log.Fatal(err)
+	}
+	return string(input)
+}
+
+func main() {
+	fmt.Println(Part1(ReadInput()))
+}
