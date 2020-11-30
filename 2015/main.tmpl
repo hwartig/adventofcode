@@ -22,7 +22,7 @@ func ReadInput() string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return string(input)
+	return strings.TrimSuffix(string(input), "\n")
 }
 
 func main() {
