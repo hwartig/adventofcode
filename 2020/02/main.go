@@ -2,23 +2,16 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
 	"strconv"
 	"strings"
+
+	"../../aoc"
 )
 
-func Atoi(s string) int {
-	result, err := strconv.Atoi(s)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return result
-}
 func Parse(input string) (lower, upper int, letter, pwd string) {
 	parts := strings.Split(input, " ")
 	bounds := strings.Split(parts[0], "-")
-	lower, upper = Atoi(bounds[0]), Atoi(bounds[1])
+	lower, upper = aoc.Atoi(bounds[0]), aoc.Atoi(bounds[1])
 	letter = string(parts[1][0])
 	pwd = parts[2]
 	return
@@ -61,19 +54,11 @@ func Part2(input string) string {
 	return strconv.Itoa(result)
 }
 
-func ReadInput() string {
-	input, err := ioutil.ReadFile("input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	return strings.TrimSuffix(string(input), "\n")
-}
-
 func main() {
 	//fmt.Println(Part2("1-3 a: abcde"))
 	//fmt.Println(Part2("1-3 b: cdefg"))
 	//fmt.Println(Part2("2-9 c: ccccccccc"))
 	//fmt.Println(Part2("2-9 c: cccccccccc"))
-	fmt.Println(Part1(ReadInput()))
-	fmt.Println(Part2(ReadInput()))
+	fmt.Println(Part1(aoc.ReadInput())) // 393
+	fmt.Println(Part2(aoc.ReadInput())) // 690
 }

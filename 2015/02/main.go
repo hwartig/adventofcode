@@ -2,52 +2,12 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
 	"sort"
 	"strconv"
 	"strings"
+
+	"../../aoc"
 )
-
-func Atoi(s string) int {
-	result, err := strconv.Atoi(s)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return result
-}
-
-func MinMax(array []int) (int, int) {
-	var max int = array[0]
-	var min int = array[0]
-	for _, value := range array {
-		if max < value {
-			max = value
-		}
-		if min > value {
-			min = value
-		}
-	}
-	return min, max
-}
-
-func Min(a []int) int {
-	min, _ := MinMax(a)
-	return min
-}
-
-func Max(a []int) int {
-	_, max := MinMax(a)
-	return max
-}
-
-func Sum(a []int) int {
-	sum := 0
-	for _, v := range a {
-		sum += v
-	}
-	return sum
-}
 
 type Line struct {
 	Length int
@@ -57,7 +17,7 @@ type Line struct {
 
 func (l Line) Paper() int {
 	a := []int{2 * l.Length * l.Width, 2 * l.Width * l.Height, 2 * l.Height * l.Length}
-	return Sum(a) + Min(a)/2
+	return aoc.Sum(a) + aoc.Min(a)/2
 }
 
 func (l Line) Ribbon() int {
@@ -70,9 +30,9 @@ func ParseLine(input string) Line {
 	d := strings.Split(input, "x")
 
 	return Line{
-		Atoi(d[0]),
-		Atoi(d[1]),
-		Atoi(d[2]),
+		aoc.Atoi(d[0]),
+		aoc.Atoi(d[1]),
+		aoc.Atoi(d[2]),
 	}
 }
 
@@ -102,15 +62,7 @@ func Part2(input string) string {
 	return strconv.Itoa(total)
 }
 
-func ReadInput() string {
-	input, err := ioutil.ReadFile("input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	return string(input)
-}
-
 func main() {
-	//fmt.Println(Part1(ReadInput()))
-	fmt.Println(Part2(ReadInput()))
+	fmt.Println(Part1(aoc.ReadInput())) // 1588178
+	fmt.Println(Part2(aoc.ReadInput())) // 3783758
 }

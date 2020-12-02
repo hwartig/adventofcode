@@ -3,10 +3,9 @@ package main
 import (
 	"crypto/md5"
 	"fmt"
-	"io/ioutil"
-	"log"
 	"strconv"
-	"strings"
+
+	"../../aoc"
 )
 
 func FindHashWithLeadingZeroes(input string, requiredZeroes int) string {
@@ -30,17 +29,10 @@ func Part2(input string) string {
 	return FindHashWithLeadingZeroes(input, 6)
 }
 
-func ReadInput() string {
-	input, err := ioutil.ReadFile("input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	return strings.TrimSuffix(string(input), "\n")
-}
-
 func main() {
 	//fmt.Println(Part1("abcdef"))  // 609043
 	//fmt.Println(Part1("pqrstuv")) // 1048970
-	//fmt.Println(Part1(ReadInput()))
-	fmt.Println(Part2(ReadInput()))
+
+	fmt.Println(Part1(aoc.ReadInput())) // 282749
+	fmt.Println(Part2(aoc.ReadInput())) // 9962624
 }

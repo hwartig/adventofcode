@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
 	"strconv"
+
+  "../../aoc"
 )
 
 func Part1(input string) string {
@@ -17,14 +17,7 @@ func Part2(input string) string {
 	return strconv.Itoa(result)
 }
 
-func ReadInput() string {
-	input, err := ioutil.ReadFile("input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	return strings.TrimSuffix(string(input), "\n")
-}
-
 func main() {
-	fmt.Println(Part1(ReadInput()))
+	fmt.Println(Part1(aoc.ReadInput()))
+	fmt.Println(Part2(aoc.ReadInput()))
 }

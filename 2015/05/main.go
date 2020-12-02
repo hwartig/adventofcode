@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
 	"strconv"
 	"strings"
+
+	"../../aoc"
 )
 
 func HasThreeOrMoreVowels(word string) bool {
@@ -82,24 +82,19 @@ func Part2(input string) string {
 	return strconv.Itoa(result)
 }
 
-func ReadInput() string {
-	input, err := ioutil.ReadFile("input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	return strings.TrimSuffix(string(input), "\n")
-}
-
 func main() {
 	//fmt.Println(Part1("ugknbfddgicrmopn"))
 	//fmt.Println(Part1("aaa"))
 	//fmt.Println(Part1("jchzalrnumimnmhp"))
 	//fmt.Println(Part1("haegwjzuvuyypxyu"))
 	//fmt.Println(Part1("dvszwmarrgswjxmb"))
-	//fmt.Println(Part1(ReadInput()))
+
+	fmt.Println(Part1(aoc.ReadInput())) // 236
+
 	//fmt.Println(Part2("qjhvhtzxzqqjkmpb"))
 	//fmt.Println(Part2("xxyxx"))
 	//fmt.Println(Part2("uurcxstgmygtbstg"))
 	//fmt.Println(Part2("ieodomkazucvgmuy"))
-	fmt.Println(Part2(ReadInput()))
+
+	fmt.Println(Part2(aoc.ReadInput())) // 51
 }
