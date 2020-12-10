@@ -38,43 +38,36 @@ func Part1(input string) string {
 	return strconv.Itoa(one * three)
 }
 
-type key struct {
-	Start, Len int
-}
+type IntSlice []int
 
-var seen = make(map[key]int)
+var seen = make(map[int]int)
 
-func Count(adapters []int, start, end int) int {
-	k := key{start, len(adapters)}
-	if val, ok := seen[k]; ok {
-		return val
-	}
-
+func (nums IntSlice) Count(i int) int {
 	result := 0
 
-	if end-start <= 3 {
-		result += 1
+	if i == len(nums)-1 {
+		return 1
 	}
 
-	if len(adapters) < 1 {
-		return result
+	if count, ok := seen[i]; ok {
+		return count
 	}
 
-	if adapters[0]-start <= 3 {
-		result += Count(adapters[1:len(adapters)], adapters[0], end)
+	for j := i + 1; j < i+4 && j < len(nums); j++ {
+		if nums[j]-nums[i] <= 3 {
+			result += nums.Count(j)
+		}
 	}
-
-	result += Count(adapters[1:len(adapters)], start, end)
-
-	seen[k] = result
+	seen[i] = result
 
 	return result
 }
 
 func Part2(input string) string {
-	nums := Parse(input)
+	nums := append([]int{0}, Parse(input)...)
+	nums = append(nums, aoc.Max(nums)+3)
 
-	return strconv.Itoa(Count(nums, 0, aoc.Max(nums)+3))
+	return strconv.Itoa(IntSlice(nums).Count(0))
 }
 
 func main() {
