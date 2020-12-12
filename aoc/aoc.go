@@ -7,6 +7,13 @@ import (
 	"strings"
 )
 
+func Abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
+}
+
 func Atoi(s string) int {
 	result, err := strconv.Atoi(s)
 	if err != nil {
