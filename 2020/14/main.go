@@ -25,16 +25,17 @@ func ApplyMask(value int, mask string) int {
 	return value
 }
 
-func SumMemValues(mem map[int]int) (result int) {
-	for _, val := range mem {
+type Memory map[int]int
+
+func (m Memory) SumMemValues() (result int) {
+	for _, val := range m {
 		result += val
 	}
 
 	return result
 }
 
-func Part1(input string) string {
-	mem := make(map[int]int)
+func (m Memory) Run(input string, apply func(int, int, string)) {
 	mask := ""
 	lines := strings.Split(input, "\n")
 
@@ -45,19 +46,15 @@ func Part1(input string) string {
 		if op == "mask" {
 			mask = val
 		} else {
-			pos := aoc.Atoi(op[4 : len(op)-1])
-			mem[pos] = ApplyMask(aoc.Atoi(val), mask)
+			apply(aoc.Atoi(op[4:len(op)-1]), aoc.Atoi(val), mask)
 		}
 	}
-
-	return strconv.Itoa(SumMemValues(mem))
 }
 
 func GenAllPos(pos int, mask string) (result []int) {
 	if mask == "" {
 		result = []int{0}
 	} else {
-
 		for _, m := range GenAllPos(pos/2, mask[0:len(mask)-1]) {
 			bit := mask[len(mask)-1]
 
@@ -68,33 +65,34 @@ func GenAllPos(pos int, mask string) (result []int) {
 			} else if bit == 'X' {
 				result = append(result, 2*m+0)
 				result = append(result, 2*m+1)
+			} else {
+				log.Panicf("don't know what to do with bit %s", bit)
 			}
 		}
 	}
 	return result
 }
 
+func Part1(input string) string {
+	mem := make(Memory)
+
+	mem.Run(input, func(pos, val int, mask string) {
+		mem[pos] = ApplyMask(val, mask)
+	})
+
+	return strconv.Itoa(mem.SumMemValues())
+}
+
 func Part2(input string) string {
-	mem := make(map[int]int)
-	mask := ""
-	lines := strings.Split(input, "\n")
+	mem := make(Memory)
 
-	for _, line := range lines {
-		parts := strings.Split(line, " = ")
-		op := parts[0]
-		val := parts[1]
-		if op == "mask" {
-			mask = val
-		} else {
-			pos := aoc.Atoi(op[4 : len(op)-1])
-			valInt := aoc.Atoi(val)
-
-			for _, p := range GenAllPos(pos, mask) {
-				mem[p] = valInt
-			}
+	mem.Run(input, func(pos, val int, mask string) {
+		for _, p := range GenAllPos(pos, mask) {
+			mem[p] = val
 		}
-	}
-	return strconv.Itoa(SumMemValues(mem))
+	})
+
+	return strconv.Itoa(mem.SumMemValues())
 }
 
 func main() {
